@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#111111">
+<meta name="application-name" content="ISA+RUGS">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ISA+RUGS">
+
+<link rel="manifest" href="manifest.json">
+
+<title>ISA+RUGS | Premium Carpets & Rugs</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f7f5f0;
+  color:#171717;
+  padding-bottom:85px;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #ddd;
+  padding:14px 18px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.logo span{
+  color:#b18a45;
+}
+
+.tagline{
+  font-size:10px;
+  color:#777;
+  letter-spacing:2px;
+  margin-top:3px;
+}
+
+.hero{
+  margin:16px;
+  min-height:430px;
+  border-radius:28px;
+  padding:35px 24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  color:white;
+  background:
+    linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.05)),
+    url("https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=1200&q=90")
+    center/cover;
+  box-shadow:0 12px 35px rgba(0,0,0,.18);
+}
+
+.hero small{
+  letter-spacing:3px;
+  font-size:11px;
+  margin-bottom:10px;
+}
+
+.hero h1{
+  font-size:38px;
+  line-height:1;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:#ddd;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.shopBtn{
+  width:max-content;
+  padding:14px 23px;
+  border-radius:30px;
+  background:white;
+  color:#111;
+  font-weight:bold;
+}
+
+.installBtn{
+  width:max-content;
+  padding:13px 20px;
+  border-radius:30px;
+  background:#b18a45;
+  color:white;
+  font-weight:bold;
+  margin-top:10px;
+  display:none;
+}
+
+.section{
+  padding:10px 16px 25px;
+}
+
+.sectionTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.sectionTitle h2{
+  font-size:21px;
+}
+
+.sectionTitle span{
+  font-size:12px;
+  color:#9a773d;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.category{
+  background:white;
+  border-radius:18px;
+  padding:20px 14px;
+  min-height:105px;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.category b{
+  display:block;
+  margin-bottom:7px;
+}
+
+.category span{
+  color:#888;
+  font-size:12px;
+}
+
+.search{
+  width:100%;
+  padding:15px 17px;
+  border:1px solid #ddd;
+  border-radius:18px;
+  outline:none;
+  background:white;
+  margin-bottom:20px;
+  font-size:15px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.product{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,.07);
+  position:relative;
+}
+
+.product img{
+  width:100%;
+  height:175px;
+  object-fit:cover;
+  display:block;
+}
+
+.productInfo{
+  padding:12px;
+}
+
+.productName{
+  font-weight:bold;
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.productPrice{
+  font-size:15px;
+  font-weight:bold;
+}
+
+.oldPrice{
+  color:#999;
+  text-decoration:line-through;
+  font-size:11px;
+  margin-left:5px;
+}
+
+.addBtn{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border-radius:12px;
+  background:#111;
+  color:white;
+  font-weight:bold;
+}
+
+.fav{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:white;
+  font-size:18px;
+}
+
+.bottomNav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(18px);
+  border-top:1px solid #ddd;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:200;
+}
+
+.navItem{
+  text-align:center;
+  font-size:11px;
+  color:#777;
+  cursor:pointer;
+}
+
+.navItem div{
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+.navItem.active{
+  color:#a77b36;
+  font-weight:bold;
+}
+
+.cartCount{
+  position:absolute;
+  top:5px;
+  margin-left:-8px;
+  background:#111;
+  color:white;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  font-size:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#888;
+  grid-column:1/-1;
+}
+
+@media(min-width:700px){
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .hero{
+    max-width:1100px;
+    margin:20px auto;
+  }
+
+  .section{
+    max-width:1100px;
+    margin:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">ISA<span>+</span>RUGS</div>
+  <div class="tagline">PREMIUM CARPETS & RUGS</div>
+</header>
+
+<section class="hero">
+  <small>HAND KNOTTED • PREMIUM COLLECTION</small>
+  <h1>DISCOVER<br>PREMIUM RUGS</h1>
+  <p>Elegant carpets and rugs designed to transform your space.</p>
+
+  <button class="shopBtn" onclick="scrollToProducts()">
+    SHOP NOW
+  </button>
+
+  <button id="installBtn" class="installBtn" onclick="installApp()">
+    INSTALL APP
+  </button>
+</section>
+
+<section class="section">
+
+  <div class="sectionTitle">
+    <h2>Categories</h2>
+    <span>EXPLORE</span>
+  </div>
+
+  <div class="categories">
+    <div class="category" onclick="filterCategory('Living')">
+      <b>Living Room</b>
+      <span>Elegant living rugs</span>
+    </div>
+
+    <div class="category" onclick="filterCategory('Bedroom')">
+      <b>Bedroom</b>
+      <span>Soft & comfortable</span>
+    </div>
+
+    <div class="category" onclick="filterCategory('Dining')">
+      <b>Dining Room</b>
+      <span>Premium floor style</span>
+    </div>
+
+    <div class="category" onclick="filterCategory('Kids')">
+      <b>Kids Room</b>
+      <span>Beautiful designs</span>
+    </div>
+  </div>
+
+</section>
+
+<section class="section" id="productsSection">
+
+  <div class="sectionTitle">
+    <h2>Our Collection</h2>
+    <span id="productCount">PRODUCTS</span>
+  </div>
+
+  <input
+    class="search"
+    id="searchBox"
+    type="search"
+    placeholder="🔎 Search carpets & rugs..."
+    oninput="searchProducts()"
+  >
+
+  <div class="products" id="products"></div>
+
+</section>
+
+<div class="bottomNav">
+
+  <div class="navItem active" onclick="goHome()">
+    <div>⌂</div>
+    Home
+  </div>
+
+  <div class="navItem" onclick="scrollToProducts()">
+    <div>▦</div>
+    Shop
+  </div>
+
+  <div class="navItem" onclick="showWishlist()">
+    <div>♡</div>
+    Wishlist
+  </div>
+
+  <div class="navItem" onclick="showCart()">
+    <div style="position:relative">
+      🛒
+      <span class="cartCount" id="cartCount">0</span>
+    </div>
+    Cart
+  </div>
+
+</div>
+
+<script>
+
+const products = [
+
+{
+ name:"Royal Persian Rug",
+ category:"Living",
+ price:12999,
+ oldPrice:15999,
+ image:"https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=800&q=90"
+},
+
+{
+ name:"Luxury Handwoven Carpet",
+ category:"Bedroom",
+ price:8999,
+ oldPrice:10999,
+ image:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=90"
+},
+
+{
+ name:"Premium Modern Rug",
+ category:"Living",
+ price:6999,
+ oldPrice:8499,
+ image:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=90"
+},
+
+{
+ name:"Classic Designer Carpet",
+ category:"Dining",
+ price:10999,
+ oldPrice:12999,
+ image:"https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=90"
+},
+
+{
+ name:"Soft Kids Room Rug",
+ category:"Kids",
+ price:4999,
+ oldPrice:5999,
+ image:"https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=90"
+},
+
+{
+ name:"Luxury Beige Rug",
+ category:"Bedroom",
+ price:7999,
+ oldPrice:9999,
+ image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=90"
+}
+
+];
+
+let cart = [];
+let wishlist = [];
+let currentProducts = [...products];
+
+function renderProducts(){
+
+  const box = document.getElementById("products");
+
+  if(currentProducts.length === 0){
+    box.innerHTML = '<div class="empty">No products found.</div>';
+    return;
+  }
+
+  box.innerHTML = currentProducts.map((p,index)=>`
+
+    <div class="product">
+
+      <button class="fav" onclick="toggleWishlist(${index})">
+        ♡
+      </button>
+
+      <img src="${p.image}" alt="${p.name}">
+
+      <div class="productInfo">
+
+        <div class="productName">${p.name}</div>
+
+        <div class="productPrice">
+          ₹${p.price.toLocaleString("en-IN")}
+          <span class="oldPrice">
+            ₹${p.oldPrice.toLocaleString("en-IN")}
+          </span>
+        </div>
+
+        <button class="addBtn" onclick="addToCart(${index})">
+          ADD TO CART
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+  document.getElementById("productCount").innerText =
+    currentProducts.length + " PRODUCTS";
+}
+
+function addToCart(index){
+
+  cart.push(currentProducts[index]);
+
+  document.getElementById("cartCount").innerText = cart.length;
+
+  alert("Product added to cart 🛒");
+}
+
+function toggleWishlist(index){
+
+  wishlist.push(currentProducts[index]);
+
+  alert("Added to wishlist ❤️");
+}
+
+function searchProducts(){
+
+  const text =
+    document.getElementById("searchBox").value.toLowerCase();
+
+  currentProducts = products.filter(p =>
+    p.name.toLowerCase().includes(text) ||
+    p.category.toLowerCase().includes(text)
+  );
+
+  renderProducts();
+}
+
+function filterCategory(category){
+
+  currentProducts =
+    products.filter(p => p.category === category);
+
+  document.getElementById("searchBox").value = "";
+
+  renderProducts();
+
+  scrollToProducts();
+}
+
+function scrollToProducts(){
+
+  document.getElementById("productsSection")
+  .scrollIntoView({behavior:"smooth"});
+}
+
+function goHome(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+function showWishlist(){
+
+  if(wishlist.length === 0){
+    alert("Your wishlist is empty ❤️");
+    return;
+  }
+
+  alert("Wishlist has " + wishlist.length + " product(s).");
+}
+
+function showCart(){
+
+  if(cart.length === 0){
+    alert("Your cart is empty 🛒");
+    return;
+  }
+
+  let message = "ISA+RUGS Order:%0A%0A";
+
+  cart.forEach((p,i)=>{
+    message +=
+      (i+1)+". "+p.name+
+      " - ₹"+p.price.toLocaleString("en-IN")+
+      "%0A";
+  });
+
+  message += "%0APlease confirm availability.";
+
+  window.open(
+    "https://wa.me/?text="+message,
+    "_blank"
+  );
+}
+
+
+/* APP INSTALL */
+
+let deferredPrompt = null;
+
+window.addEventListener("beforeinstallprompt", function(e){
+
+  e.preventDefault();
+
+  deferredPrompt = e;
+
+  document.getElementById("installBtn").style.display =
+    "block";
+
+});
+
+async function installApp(){
+
+  if(deferredPrompt){
+
+    deferredPrompt.prompt();
+
+    const result =
+      await deferredPrompt.userChoice;
+
+    deferredPrompt = null;
+
+    document.getElementById("installBtn").style.display =
+      "none";
+
+    return;
+  }
+
+  alert(
+    "Chrome ke ⋮ menu par tap karke 'Add to Home screen' ya 'Install app' select karein."
+  );
+}
+
+window.addEventListener("appinstalled",function(){
+
+  document.getElementById("installBtn").style.display =
+    "none";
+
+});
+
+
+/* SERVICE WORKER */
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener("load",function(){
+
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(function(error){
+
+        console.log("Service Worker:",error);
+
+      });
+
+  });
+
+}
+
+renderProducts();
+
+</script>
+
+</body>
+  </html>
